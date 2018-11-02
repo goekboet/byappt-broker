@@ -13,8 +13,8 @@ mockDay = fromGregorian 2018 10 31
 mockStart :: UTCTime
 mockStart = UTCTime mockDay (oClock 15 0)
 
-mockDuration :: DiffTime
-mockDuration = secondsToDiffTime (60 * 30)
+mockDuration :: Int
+mockDuration = 90
 
 mockHosts :: [Host]
 mockHosts =
@@ -30,12 +30,12 @@ mockAppointments :: [Appointment]
 mockAppointments =
     [ Appointment { appointmentHostId = "first"
                   , appointmentStart = mockStart
-                  , appointmentDuration = mockDuration
+                  , appointmentDurationMinutes = mockDuration
                   }
 
     , Appointment { appointmentHostId = "second"
                   , appointmentStart = mockStart
-                  , appointmentDuration = mockDuration
+                  , appointmentDurationMinutes = mockDuration
                   }
     ]
 
@@ -44,10 +44,10 @@ mockBookings =
     [
       Booking { bookingHostId = "first"
               , bookingStart = mockStart
-              , bookingDuration = mockDuration
+              , bookingDurationMinutes = mockDuration
               }
     , Booking { bookingHostId = "second"
               , bookingStart = mockStart
-              , bookingDuration = mockDuration
+              , bookingDurationMinutes = mockDuration
               }
     ]
