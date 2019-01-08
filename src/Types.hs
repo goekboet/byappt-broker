@@ -1,16 +1,19 @@
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Types where
 
 import           Data.Time.Clock                ( UTCTime
                                                 )
+import           Data.Time.Clock.POSIX          ( utcTimeToPOSIXSeconds )
 import           GHC.Generics
 import           Data.Aeson                     ( ToJSON
                                                 , toJSON
                                                 , toEncoding
                                                 , genericToEncoding
                                                 , defaultOptions
-                                                )
+                                                , object
+                                                , (.=))
 
 data Host = Host
     { hostId :: String
@@ -24,10 +27,15 @@ data Appointment = Appointment
     { appointmentHostId :: String
     , appointmentStart :: UTCTime
     , appointmentDurationMinutes :: Int
-    } deriving (Generic, Show)
+    } deriving (Show)
 
 instance ToJSON Appointment where
-    toEncoding = genericToEncoding defaultOptions
+    toJSON (Appointment id start dur) =
+        object 
+            [ "hostId" .= id
+            , "start" .= (utcTimeToPOSIXSeconds start)
+            , "duration" .= dur
+            ]
 
 data Booking = Booking
     { bookingHostId :: String

@@ -23,6 +23,8 @@ dependencies:
 - base >= 4.7 && < 5
 - time
 - aeson
+- bytestring
+- containers
 
 library:
   source-dirs: src
@@ -38,6 +40,7 @@ executables:
     dependencies:
     - broker
     - scotty
+    - wai-extra
     - http-types
 
 tests:
